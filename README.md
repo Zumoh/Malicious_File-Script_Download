@@ -1,1 +1,143 @@
-# Malicious_File-Script_Download
+# Malicious File/Script Download
+
+[This investigation focused on analyzing network traffic and system logs to identify a Brute Force Attack on a compromised web server, uncovering the attacker's tactics, the targeted server, and compromised credentials, as well as completing a challenge provided by LetsDefend.io.]
+
+#
+
+<img width="650" alt="Screenshot 2025-01-19 203716" src="https://github.com/user-attachments/assets/9b90444a-246b-4813-8697-b8fa22ec35af" />
+
+
+## Objective
+
+The objective of this investigation is to analyze and determine the details surrounding a potential malicious file/script download attempt detected on the endpoint ‘**NicolasPRD**’. The investigation aims to identify critical information such as the source address, file name, file hash, and associated URLs. By reviewing logs, performing file analysis using VirusTotal, and using tools like ExifTool, oleid, and olevba, the goal is to verify the file’s malicious nature, assess its potential impact, and determine whether it successfully executed any harmful payloads. Additionally, by examining network activity, endpoint behavior, and command-and-control (C2) communications, the investigation seeks to identify the scope of the threat, ensure proper containment and mitigation, and provide recommendations for enhancing the organization’s security posture.
+
+### [Skills Learned
+
+- **Network Traffic Analysis**:
+   - Proficient use of Wireshark to capture and analyze network traffic.
+      Understanding protocols like HTTP, RDP, and TCP/IP is essential for identifying attack patterns like brute force attempts and unauthorized access. This skill is critical for detecting threats and vulnerabilities in network communication.
+- **Log File Analysis:**
+   - Expertise in examining system logs (e.g., auth.log) and extracting relevant details.
+      - Familiarity with tools like grep, wc, and cat for filtering and processing log files is key to identifying authentication attempts, system anomalies, and potential intrusions. This skill is fundamental for forensic analysis in incident response.
+- **Incident Response:**
+   - Ability to identify attack tactics and techniques.
+      - Analyzing network traffic and logs helps trace the attacker's actions, assess the breach's scope, and formulate a response strategy. This skill is vital for mitigating attacks and protecting systems from further compromise.
+- **MITRE ATT&CK Framework:**
+   - Understanding and applying the MITRE ATT&CK framework to map attack techniques.
+      - Identifying attack patterns and tactics used by adversaries allows for effective threat detection and response. This knowledge is crucial for cybersecurity professionals when defending against known attack vectors.]
+    
+### 🛠️ Tools Used
+
+- **VirusTotal**: For scanning file hashes and checking for known malicious files across multiple security vendors.
+- **Kali Linux (Sandboxed Environment)**: For performing static analysis in an isolated environment to safely examine potentially malicious files and behavior without risking system compromise.
+- **ExifTool**: For extracting metadata from documents to understand their origin and properties.
+- **oleid**: For analyzing files for embedded macros, links, and other suspicious content in Microsoft Office documents.
+- **olevba**: For extracting and analyzing embedded VBA macros within Microsoft Office files to detect potential security threats.
+- **EDR Tool**: For reviewing endpoint status, logs, and quarantine actions related to detected malicious files.
+- **Wipe Command**: For securely deleting files to prevent any potential recovery or accidental re-execution of malicious code.
+
+#
+
+<img width="614" alt="Screenshot 2025-01-27 at 3 29 40 PM" src="https://github.com/user-attachments/assets/054afd3f-7d76-42d8-a214-cf45799d2270" />
+
+#
+
+### Alert Information
+
+- EventID : 76 
+- Event Time : Mar, 14, 2021, 07:15 PM
+- Rule : SOC137 - Malicious File/Script Download Attempt
+- Level : Security Analyst
+- Source Address : 172.16.17.37
+- Source Hostname : NicolasPRD
+- File Name : INVOICE PACKAGE LINK TO DOWNLOAD.docm
+- File Hash : f2d0c66b801244c059f636d08a474079
+- File Size : 16.66 Kb
+- Device Action : Blocked
+- File (Password:infected) : https[:]//files-ld[.]s3[.]us-east-2[.]amazonaws[.]com[/]f2d0c66b801244c059f636d08a474079.zip
+
+#
+
+To get the investigation started, we need to create a case and take ownership of the ticket. This helps other SOC analysts know that someone is already working on it, which prevents duplicate efforts. Assigning ownership keeps the investigation organized and ensures no unnecessary work is done.
+
+#
+
+<img width="627" alt="Screenshot 2025-01-27 at 3 36 45 PM" src="https://github.com/user-attachments/assets/e17d2a9f-260c-4c25-93f4-4f61a62fbfdf" />
+
+<img width="628" alt="Screenshot 2025-01-27 at 3 37 22 PM" src="https://github.com/user-attachments/assets/f7059bc6-e981-40a4-9dab-d67ebb4e2e62" />
+
+#
+
+Upon detection of a security event, we are prompted to start the playbook. The playbook offers a clear, step-by-step guide to help us assess the situation, contain the threat, escalate when necessary, eliminate the threat, restore the system, and document the process. This organized approach ensures we address the incident effectively, minimizing potential damage or further compromise.
+
+<img width="726" alt="Screenshot 2025-01-27 at 3 38 47 PM" src="https://github.com/user-attachments/assets/4b9a6021-a571-4f3f-a4d1-52ce5a5a9cf3" />
+
+#
+
+<img width="726" alt="Screenshot 2025-01-27 at 3 43 42 PM" src="https://github.com/user-attachments/assets/231eddf8-91c7-4af5-b8ec-41f1e9eac93e" />
+
+#
+
+The playbook first prompts us to check if the malware has been quarantined or cleaned. To do this, we access the EDR tool, search for the affected endpoint ‘NicolasPRD’, and review its status and logs. The logs will provide detailed information about any malicious activity detected, as well as any actions taken.
+
+#
+
+<img width="727" alt="Screenshot 2025-01-27 at 3 48 55 PM" src="https://github.com/user-attachments/assets/f3f2ed29-7f9a-4d1a-ba34-a30b747c913d" />
+
+#
+
+Despite conducting a thorough review of all the analysis tabs, we did not find any suspicious activity or indicators of compromise. The endpoint did not display any unexpected network connections, processes, or interactions with malicious IP addresses or domains.
+
+#
+
+<img width="728" alt="Screenshot 2025-01-27 at 3 50 12 PM" src="https://github.com/user-attachments/assets/f8c6f65b-f63b-4fb6-8b3e-32dd3fa26d8e" />
+
+#
+
+After confirming that the initial endpoint showed no suspicious activity, we proceeded to check other endpoints for the same file hash. Our search across the network verified that no other endpoints contained the malicious file. This indicates that the threat was successfully quarantined on the affected endpoint, and no further instances of the file were found in the environment. This provides reassurance that the malicious file was contained, and there is no evidence of widespread compromise.
+
+#
+
+<img width="727" alt="Screenshot 2025-01-27 at 3 53 38 PM" src="https://github.com/user-attachments/assets/fcaa1671-70dc-41ca-acf1-20846af450cd" />
+
+#
+
+<img width="726" alt="Screenshot 2025-01-27 at 3 43 42 PM" src="https://github.com/user-attachments/assets/231eddf8-91c7-4af5-b8ec-41f1e9eac93e" />
+
+#
+
+The playbook then requires analyzing the file to determine whether it is malicious. Since we have already been provided with the hash value of the file, we will use this hash to perform a quick scan on VirusTotal. By submitting the file hash to VirusTotal, we can quickly check if the file has been flagged as malicious by any security vendor. This step allows us to gain insight into the file’s reputation across multiple threat intelligence sources, helping us assess its risk and decide on further actions based on the results.
+
+A total of forty security vendors identified the file as malicious. The macro, named 'AutoOpen,' uses the shell function to execute a PowerShell command that retrieves a file from a specified URL. This behavior is commonly associated with malicious activity, as it allows attackers to download and execute additional harmful payloads on the target machine. By leveraging PowerShell, the macro can silently carry out these actions without the user's knowledge, making it a common tactic used in the delivery of malware such as ransomware, trojans, or other forms of malicious software. This type of activity further confirms the file's malicious intent and its potential to compromise the system.
+
+#
+
+<img width="628" alt="Screenshot 2025-01-27 at 3 56 00 PM" src="https://github.com/user-attachments/assets/2dd03120-6b32-42dd-96bd-acd8857fb740" />
+
+#
+
+We examine the **Relations** tab to identify the callback IP address(es) of the Command and Control (C2) server associated with the trojan. This tab helps track the file’s communication patterns, revealing the IPs it contacts to receive commands or send data. By identifying these IP addresses, we can further investigate the infection scope and monitor for ongoing malicious activity, check for any other systems that might be communicating with these IPs which helps to mitigate the threat if any.
+
+#
+
+<img width="728" alt="Screenshot 2025-01-27 at 3 57 12 PM" src="https://github.com/user-attachments/assets/67a58595-4a3c-4226-8171-47fd3794ca06" />
+
+#
+
+Reviewing the **MITRE ATT&CK** section allows us to gather information on the attacker's tactics and techniques. It reveals that the file contains embedded VBA macros that trigger malicious code execution when interacted with. This can result in various harmful activities, such as downloading additional payloads, data theft, or remote control of the infected system. VBA macros are commonly used to deliver and execute malicious code within documents.
+
+#
+
+<img width="729" alt="Screenshot 2025-01-27 at 3 58 15 PM" src="https://github.com/user-attachments/assets/c581c9ff-05e4-4513-ac33-3f47ddaeb010" />
+
+#
+
+<img width="728" alt="Screenshot 2025-01-27 at 4 01 50 PM" src="https://github.com/user-attachments/assets/2ceb3916-5ead-4a29-bf37-e80896177932" />
+
+#
+
+
+
+
+
+
