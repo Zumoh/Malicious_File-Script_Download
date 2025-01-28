@@ -11,21 +11,28 @@
 
 The objective of this investigation is to analyze and determine the details surrounding a potential malicious file/script download attempt detected on the endpoint ‘**NicolasPRD**’. The investigation aims to identify critical information such as the source address, file name, file hash, and associated URLs. By reviewing logs, performing file analysis using VirusTotal, and using tools like ExifTool, oleid, and olevba, the goal is to verify the file’s malicious nature, assess its potential impact, and determine whether it successfully executed any harmful payloads. Additionally, by examining network activity, endpoint behavior, and command-and-control (C2) communications, the investigation seeks to identify the scope of the threat, ensure proper containment and mitigation, and provide recommendations for enhancing the organization’s security posture.
 
-### [Skills Learned
+### Skills Learned
 
-- **Network Traffic Analysis**:
-   - Proficient use of Wireshark to capture and analyze network traffic.
-      Understanding protocols like HTTP, RDP, and TCP/IP is essential for identifying attack patterns like brute force attempts and unauthorized access. This skill is critical for detecting threats and vulnerabilities in network communication.
-- **Log File Analysis:**
-   - Expertise in examining system logs (e.g., auth.log) and extracting relevant details.
-      - Familiarity with tools like grep, wc, and cat for filtering and processing log files is key to identifying authentication attempts, system anomalies, and potential intrusions. This skill is fundamental for forensic analysis in incident response.
-- **Incident Response:**
-   - Ability to identify attack tactics and techniques.
-      - Analyzing network traffic and logs helps trace the attacker's actions, assess the breach's scope, and formulate a response strategy. This skill is vital for mitigating attacks and protecting systems from further compromise.
-- **MITRE ATT&CK Framework:**
-   - Understanding and applying the MITRE ATT&CK framework to map attack techniques.
-      - Identifying attack patterns and tactics used by adversaries allows for effective threat detection and response. This knowledge is crucial for cybersecurity professionals when defending against known attack vectors.]
-    
+- **Threat Analysis and Detection**:
+   - Identifying malicious files, scripts, and behaviors, such as embedded macros.
+      - Understanding protocols like HTTP, RDP, and TCP/IP is essential for identifying attack patterns like brute force attempts and unauthorized access. This skill is critical for detecting threats and vulnerabilities in network communication.
+- **Utilizing Security Tools:**
+   - Mastering tools like VirusTotal, ExifTool, OLE tools (oleid, olevba), and EDR solutions for threat analysis.
+      - Performing sandboxed analyses using Kali Linux or other isolated environments.
+- **Incident Response Processes:**
+   - Following playbooks to systematically assess, contain, and mitigate threats.
+      - Documenting findings and taking appropriate steps to address incidents.
+- **Log Analysis:**
+   - Searching logs for evidence of suspicious activities, such as file executions or network communications.
+      - Verifying whether C2 servers were contacted or other endpoints were affected.
+- **Threat Intelligence Integration:**
+   - Leveraging external sources like VirusTotal to cross-reference malicious activity and validate threats.
+- **Secure File Handling:**
+   - Using tools like the wipe command to securely delete malicious files, ensuring no residual risks.
+- **Communication and Documentation:**
+   - Writing clear, detailed reports and notes for ticket closure to aid in future investigations.
+      - Communicating findings with team members for coordinated responses.  
+  
 ### 🛠️ Tools Used
 
 - **VirusTotal**: For scanning file hashes and checking for known malicious files across multiple security vendors.
