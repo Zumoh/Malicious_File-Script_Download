@@ -72,9 +72,9 @@ To get the investigation started, we need to create a case and take ownership of
 
 #
 
-<img width="627" alt="Screenshot 2025-01-27 at 3 36 45 PM" src="https://github.com/user-attachments/assets/e17d2a9f-260c-4c25-93f4-4f61a62fbfdf" />
+<img width="727" alt="Screenshot 2025-01-27 at 3 36 45 PM" src="https://github.com/user-attachments/assets/e17d2a9f-260c-4c25-93f4-4f61a62fbfdf" />
 
-<img width="628" alt="Screenshot 2025-01-27 at 3 37 22 PM" src="https://github.com/user-attachments/assets/f7059bc6-e981-40a4-9dab-d67ebb4e2e62" />
+<img width="728" alt="Screenshot 2025-01-27 at 3 37 22 PM" src="https://github.com/user-attachments/assets/f7059bc6-e981-40a4-9dab-d67ebb4e2e62" />
 
 #
 
@@ -84,11 +84,13 @@ Upon detection of a security event, we are prompted to start the playbook. The p
 
 #
 
-<img width="726" alt="Screenshot 2025-01-27 at 3 43 42 PM" src="https://github.com/user-attachments/assets/231eddf8-91c7-4af5-b8ec-41f1e9eac93e" />
+### _Playbook Prompt (1). Check If The Malware Is Quarantined/Cleaned?_
+
+<img width="726" alt="Screenshot 2025-01-28 at 12 40 32 PM" src="https://github.com/user-attachments/assets/b0ef57d7-f630-4587-ad45-0bc888cb90f5" />
 
 #
 
-The playbook first prompts us to check if the malware has been quarantined or cleaned. To do this, we access the EDR tool, search for the affected endpoint ‘NicolasPRD’, and review its status and logs. The logs will provide detailed information about any malicious activity detected, as well as any actions taken.
+The playbook first prompts us to check if the malware has been quarantined or cleaned. To do this, we access the EDR tool, search for the affected endpoint ‘**NicolasPRD**’, and review its status and logs. The logs will provide detailed information about any malicious activity detected, as well as any actions taken.
 
 #
 
@@ -98,21 +100,21 @@ The playbook first prompts us to check if the malware has been quarantined or cl
 
 Despite conducting a thorough review of all the analysis tabs, we did not find any suspicious activity or indicators of compromise. The endpoint did not display any unexpected network connections, processes, or interactions with malicious IP addresses or domains.
 
-#
-
 <img width="728" alt="Screenshot 2025-01-27 at 3 50 12 PM" src="https://github.com/user-attachments/assets/f8c6f65b-f63b-4fb6-8b3e-32dd3fa26d8e" />
 
 #
 
-After confirming that the initial endpoint showed no suspicious activity, we proceeded to check other endpoints for the same file hash. Our search across the network verified that no other endpoints contained the malicious file. This indicates that the threat was successfully quarantined on the affected endpoint, and no further instances of the file were found in the environment. This provides reassurance that the malicious file was contained, and there is no evidence of widespread compromise.
-
-#
+After confirming that the initial endpoint showed no suspicious activity, we extended our investigation to other endpoints within the network to check for the presence of the same file hash. This helps ensure no other systems are affected and gives us a better idea of the threat's scope.
 
 <img width="727" alt="Screenshot 2025-01-27 at 3 53 38 PM" src="https://github.com/user-attachments/assets/fcaa1671-70dc-41ca-acf1-20846af450cd" />
 
+Our search across the network verified that no other endpoints contained the malicious file. This indicates that the threat was successfully quarantined on the affected endpoint, and no further instances of the file were found in the environment. This provides reassurance that the malicious file was contained, and there is no evidence of widespread compromise.
+
 #
 
-<img width="726" alt="Screenshot 2025-01-27 at 3 43 42 PM" src="https://github.com/user-attachments/assets/231eddf8-91c7-4af5-b8ec-41f1e9eac93e" />
+### _Playbook Prompt (2). Analyze Malware._
+
+<img width="727" alt="Screenshot 2025-01-28 at 12 56 59 PM" src="https://github.com/user-attachments/assets/5152557a-ea5c-498b-9207-f24288de35f0" />
 
 #
 
@@ -120,23 +122,17 @@ The playbook then requires analyzing the file to determine whether it is malicio
 
 A total of forty security vendors identified the file as malicious. The macro, named 'AutoOpen,' uses the shell function to execute a PowerShell command that retrieves a file from a specified URL. This behavior is commonly associated with malicious activity, as it allows attackers to download and execute additional harmful payloads on the target machine. By leveraging PowerShell, the macro can silently carry out these actions without the user's knowledge, making it a common tactic used in the delivery of malware such as ransomware, trojans, or other forms of malicious software. This type of activity further confirms the file's malicious intent and its potential to compromise the system.
 
-#
-
-<img width="628" alt="Screenshot 2025-01-27 at 3 56 00 PM" src="https://github.com/user-attachments/assets/2dd03120-6b32-42dd-96bd-acd8857fb740" />
+<img width="728" alt="Screenshot 2025-01-27 at 3 56 00 PM" src="https://github.com/user-attachments/assets/2dd03120-6b32-42dd-96bd-acd8857fb740" />
 
 #
 
 We examine the **Relations** tab to identify the callback IP address(es) of the Command and Control (C2) server associated with the trojan. This tab helps track the file’s communication patterns, revealing the IPs it contacts to receive commands or send data. By identifying these IP addresses, we can further investigate the infection scope and monitor for ongoing malicious activity, check for any other systems that might be communicating with these IPs which helps to mitigate the threat if any.
-
-#
 
 <img width="728" alt="Screenshot 2025-01-27 at 3 57 12 PM" src="https://github.com/user-attachments/assets/67a58595-4a3c-4226-8171-47fd3794ca06" />
 
 #
 
 Reviewing the **MITRE ATT&CK** section allows us to gather information on the attacker's tactics and techniques. It reveals that the file contains embedded VBA macros that trigger malicious code execution when interacted with. This can result in various harmful activities, such as downloading additional payloads, data theft, or remote control of the infected system. VBA macros are commonly used to deliver and execute malicious code within documents.
-
-#
 
 <img width="729" alt="Screenshot 2025-01-27 at 3 58 15 PM" src="https://github.com/user-attachments/assets/c581c9ff-05e4-4513-ac33-3f47ddaeb010" />
 
@@ -146,7 +142,27 @@ Reviewing the **MITRE ATT&CK** section allows us to gather information on the at
 
 #
 
+### Static Analysis using a Sand-boxed Environment. 
 
+To perform a static analysis, we can use OLE tools in an isolated environment. This approach allows us to examine the file's properties such as embedded macros, links, and other potentially harmful content without the risk of executing the file or causing harm to the system. Conducting this analysis in a sandboxed or isolated environment ensures that any malicious behavior is contained while we assess the file's risks.
+
+To install Oletools, run the following command: ```sudo -H pip install -U oletools[full]```. This ensures that the full package, including all optional dependencies, is installed. Using ```-H``` ensures the home directory is correctly set for the superuser, and ```-U``` upgrades any existing version of Oletools.
+
+<img width="732" alt="Screenshot 2025-01-28 at 1 00 15 PM" src="https://github.com/user-attachments/assets/929c7f8c-c95b-4a86-bd37-24316b654b68" />
+
+#
+
+Ensure that your virtual machine's network adapter is set to 'Custom: Specific Virtual Network’ to create a sandboxed environment. This setup places the virtual machine in its own isolated network, preventing it from communicating with the host machine or external networks, which enhances security.
+
+<img width="725" alt="Screenshot 2025-01-28 at 1 11 32 PM" src="https://github.com/user-attachments/assets/a5e59b16-e960-4e27-87c3-249d5df8a22f" />
+
+#
+
+The first tool we used is called ExifTool. This tool is used to gather metadata about the document. Metadata includes information like the document’s creation date, the software used to create it, and any modifications that have been made. From the results, we can see the MIME type, which indicates that the document has macros enabled, and other details like the document's author, title, and last modified date. This metadata helps us understand the origin and nature of the document, which is crucial for further analysis.
+
+<img width="727" alt="Screenshot 2025-01-28 at 1 13 35 PM" src="https://github.com/user-attachments/assets/f5459af7-df25-4dda-ba69-cc8a7ee5b87f" />
+
+#
 
 
 
