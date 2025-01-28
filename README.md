@@ -1,6 +1,6 @@
 # Malicious File/Script Download
 
-[This investigation focused on analyzing network traffic and system logs to identify a Brute Force Attack on a compromised web server, uncovering the attacker's tactics, the targeted server, and compromised credentials, as well as completing a challenge provided by LetsDefend.io.]
+This investigation focused on analyzing malicious file behavior and endpoint logs to identify a Malicious File/Script Download Attempt, uncovering the embedded VBA macros, potential C2 communication, and the threat’s delivery mechanism, as well as completing a challenge provided by LetsDefend.io.
 
 #
 
