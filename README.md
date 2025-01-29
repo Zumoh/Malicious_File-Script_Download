@@ -1,8 +1,6 @@
 # Malicious File/Script Download
 
-#
-
-<img width="650" alt="Screenshot 2025-01-19 203716" src="https://github.com/user-attachments/assets/9b90444a-246b-4813-8697-b8fa22ec35af" />
+<img width="750" alt="Screenshot 2025-01-19 203716" src="https://github.com/user-attachments/assets/9b90444a-246b-4813-8697-b8fa22ec35af" />
 
 
 ## Objective
