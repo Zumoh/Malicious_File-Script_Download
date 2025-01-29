@@ -7,7 +7,7 @@
 
 The objective of this investigation is to analyze and determine the details surrounding a potential malicious file/script download attempt detected on the endpoint ‘**NicolasPRD**’. The investigation aims to identify critical information such as the source address, file name, file hash, and associated URLs. By reviewing logs, performing file analysis using VirusTotal, and using tools like ExifTool, oleid, and olevba, the goal is to verify the file’s malicious nature, assess its potential impact, and determine whether it successfully executed any harmful payloads. Additionally, by examining network activity, endpoint behavior, and command-and-control (C2) communications, the investigation seeks to identify the scope of the threat, ensure proper containment and mitigation, and provide recommendations for enhancing the organization’s security posture.
 
-#
+---
 
 ### Skills Learned
 
@@ -30,7 +30,7 @@ The objective of this investigation is to analyze and determine the details surr
 - **Communication and Documentation:**
    - Writing clear, detailed reports and notes for ticket closure to aid in future investigations.
       - Communicating findings with team members for coordinated responses.  
-#
+---
 
 ### 🛠️ Tools Used
 
