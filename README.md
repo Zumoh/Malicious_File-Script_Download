@@ -240,9 +240,3 @@ By navigating to the 'Closed Alerts' tab, we can access a complete list of all p
 
 <img width="626" alt="Screenshot 2025-01-28 at 3 13 07 PM" src="https://github.com/user-attachments/assets/21613bcd-9e30-4a99-b6c2-e91f31a086bd" />
 
-#
-
-
-
-
-
